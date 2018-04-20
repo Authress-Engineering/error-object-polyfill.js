@@ -17,7 +17,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "commander": "^2.15.1",
-    "eslint-config-cimpress-atsquad": "^1.0.14",
+    "eslint-config-cimpress-atsquad": "^1.0.32",
     "glob": "^5.0.15",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
@@ -33,6 +33,9 @@
     "error polyfill",
     "error object"
   ],
+  "engines": {
+    "node": ">=8.9.4"
+  },
   "author": "Warren Parad <wparad@gmail.com> (http://wparad.github.io)",
   "license": "GPL-3.0",
   "bugs": {

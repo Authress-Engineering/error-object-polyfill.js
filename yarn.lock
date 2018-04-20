@@ -258,9 +258,9 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-config-cimpress-atsquad@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/eslint-config-cimpress-atsquad/-/eslint-config-cimpress-atsquad-1.0.14.tgz#747f02ffa93db157012a6f81cfd67bd6ffd17c84"
+eslint-config-cimpress-atsquad@^1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/eslint-config-cimpress-atsquad/-/eslint-config-cimpress-atsquad-1.0.32.tgz#77f81ecfcf589069226a5aeeb6bf58ae3834e9d0"
   dependencies:
     eslint "^4.17.0"
     eslint-plugin-mocha "^4.11.0"
