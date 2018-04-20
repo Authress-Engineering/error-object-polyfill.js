@@ -1,5 +1,5 @@
 {
-  "name": "error-object-pollfil",
+  "name": "error-object-polyfill",
   "version": "0.0.0",
   "description": "Replace your lame string errors with object versions.",
   "main": "index.js",
