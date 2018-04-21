@@ -38,11 +38,11 @@ class ApplicationError extends Error {
   }
 
   toJSON() {
-    return {
-      name: this.constructor.name,
-      message: this.message,
-      stack: this.stack
-    };
+    let map = {};
+    Object.getOwnPropertyNames(this).forEach(key => {
+      map[key] = this[key];
+    });
+    return map;
   }
 }
 
@@ -57,9 +57,9 @@ Error.prototype.toString = function() {
   return this.message ? `ErrorObjectPolyFill: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
 };
 Error.prototype.toJSON = function() {
-  return {
-    name: this.constructor.name,
-    message: this.message,
-    stack: this.stack
-  };
+  let map = {};
+  Object.getOwnPropertyNames(this).forEach(key => {
+    map[key] = this[key];
+  });
+  return map;
 };
