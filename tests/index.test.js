@@ -56,7 +56,12 @@ describe('index.js', () => {
   });
 
   describe('create()', () => {
-    it('correctly captures object in error', () => {
+    it('correctly captures object in Error', () => {
+      let error = Error.create(thrownObject);
+      expect(error.message).to.eql(thrownObject);
+    });
+
+    it('correctly captures object in Error()', () => {
       let error = Error().create(thrownObject);
       expect(error.message).to.eql(thrownObject);
     });
@@ -67,23 +72,18 @@ describe('index.js', () => {
     });
 
     it('It is an error', () => {
+      expect(Error.create({})).to.be.instanceof(Error);
       expect(Error().create({})).to.be.instanceof(Error);
       expect(new Error().create({})).to.be.instanceof(Error);
     });
 
     it('PolyFill toString works', () => {
-      let toString = new Error().create({}).toString();
-      expect(toString).to.equal('ErrorObjectPolyFill: {}');
-    });
-
-    it('PolyFill toString works', () => {
-      let message = 'this is a message';
-      let toString = new Error(message).create({}).toString();
+      let toString = Error.create({}).toString();
       expect(toString).to.equal('ErrorObjectPolyFill: {}');
     });
 
     it('JSON.stringify works', () => {
-      let error = new Error().create(thrownObject);
+      let error = Error.create(thrownObject);
       let loggedError = JSON.parse(JSON.stringify(error));
       expect(loggedError.message).to.eql(error.message);
       expect(loggedError.stack).to.eql(error.stack);
@@ -92,6 +92,14 @@ describe('index.js', () => {
       expect(loggedError.thing).to.eql(thrownObject);
       expect(loggedError.error.message).to.eql(error.message);
       expect(loggedError.error.stack).to.eql(error.stack);
+    });
+
+    it('All versions are the same.', () => {
+      let error = Error.create(thrownObject);
+      let errorFunction = Error().create(thrownObject);
+      let errorNew = new Error().create(thrownObject);
+      expect(error).to.eql(errorFunction);
+      expect(error).to.eql(errorNew);
     });
 
     it('callsite stack works', () => {

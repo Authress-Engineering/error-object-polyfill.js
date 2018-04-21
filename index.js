@@ -32,11 +32,6 @@ class ApplicationError extends Error {
     return this.message ? `${this.constructor.name}: ${JSON.stringify(this.message)}` : this.constructor.name;
   }
 
-  static create(errorObject) {
-    this.message = errorObject;
-    return this;
-  }
-
   toJSON() {
     let map = {};
     Object.getOwnPropertyNames(this).forEach(key => {
@@ -51,8 +46,14 @@ global.ApplicationError = ApplicationError;
 module.exports = ApplicationError;
 
 /* eslint-disable no-extend-native */
-Error.create = ApplicationError.create;
-Error.prototype.create = ApplicationError.create;
+Error.create = function(errorObject) {
+  if (!(this instanceof Error)) {
+    return new Error().create(errorObject);
+  }
+  this.message = errorObject;
+  return this;
+};
+Error.prototype.create = Error.create;
 Error.prototype.toString = function() {
   return this.message ? `ErrorObjectPolyFill: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
 };
