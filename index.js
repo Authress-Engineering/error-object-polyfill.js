@@ -31,7 +31,35 @@ class ApplicationError extends Error {
   toString() {
     return this.message ? `${this.constructor.name}: ${JSON.stringify(this.message)}` : this.constructor.name;
   }
+
+  static create(errorObject) {
+    this.message = errorObject;
+    return this;
+  }
+
+  toJSON() {
+    return {
+      name: this.constructor.name,
+      message: this.message,
+      stack: this.stack
+    };
+  }
 }
 
-/* eslint-disable no-global-assign */
+/* eslint-disable-next-line no-global-assign */
 global.ApplicationError = ApplicationError;
+module.exports = ApplicationError;
+
+/* eslint-disable no-extend-native */
+Error.create = ApplicationError.create;
+Error.prototype.create = ApplicationError.create;
+Error.prototype.toString = function() {
+  return this.message ? `ErrorObjectPolyFill: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
+};
+Error.prototype.toJSON = function() {
+  return {
+    name: this.constructor.name,
+    message: this.message,
+    stack: this.stack
+  };
+};
