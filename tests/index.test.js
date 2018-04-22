@@ -96,10 +96,17 @@ describe('index.js', () => {
 
     it('All versions are the same.', () => {
       let error = Error.create(thrownObject);
+      expect(error.stack).to.not.eq(null);
+      error.stack = {};
       let errorFunction = Error().create(thrownObject);
+      expect(errorFunction.stack).to.not.eq(null);
+      errorFunction.stack = {};
       let errorNew = new Error().create(thrownObject);
-      expect(error).to.eql(errorFunction);
-      expect(error).to.eql(errorNew);
+      expect(errorNew.stack).to.not.eq(null);
+      errorNew.stack = {};
+
+      expect(JSON.stringify(error)).to.eql(JSON.stringify(errorFunction));
+      expect(JSON.stringify(error)).to.eql(JSON.stringify(errorNew));
     });
 
     it('callsite stack works', () => {
