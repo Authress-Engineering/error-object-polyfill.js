@@ -48,7 +48,9 @@ module.exports = ApplicationError;
 /* eslint-disable no-extend-native */
 Error.create = function(errorObject) {
   if (!(this instanceof Error)) {
-    return new Error().create(errorObject);
+    let error = new Error().create(errorObject);
+    Error.captureStackTrace(error, Error.create);
+    return error;
   }
   this.message = errorObject;
   return this;
