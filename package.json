@@ -10,9 +10,6 @@
     "lint": "eslint --ext .js tests lib index.js",
     "test": "mocha tests/**/*.js -R spec"
   },
-  "bin": {
-    "aws-architect": "./bin/aws-architect.js"
-  },
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
