@@ -18,10 +18,11 @@
 
 let originalError = Error;
 class ApplicationError extends Error {
-  constructor(...args) {
-    super(...args);
+  constructor(message, code, ...args) {
+    super(message, ...args);
     originalError.captureStackTrace(this, this.constructor);
-    this.message = args[0];
+    this.message = message;
+    this.code = code;
   }
   
   get [Symbol.toStringTag]() {
@@ -29,7 +30,8 @@ class ApplicationError extends Error {
   }
 
   toString() {
-    return this.message ? `${this.constructor.name}: ${JSON.stringify(this.message)}` : this.constructor.name;
+    const codeString = this.code ? ` (${this.code})` : '';
+    return this.message ? `${this.constructor.name}${codeString}: ${JSON.stringify(this.message)}` : this.constructor.name;
   }
 
   toJSON() {
@@ -46,18 +48,20 @@ global.ApplicationError = ApplicationError;
 module.exports = ApplicationError;
 
 /* eslint-disable no-extend-native */
-Error.create = function(errorObject) {
+Error.create = function(errorObject, code) {
   if (!(this instanceof Error)) {
-    let error = new Error().create(errorObject);
+    let error = new Error().create(errorObject, code);
     Error.captureStackTrace(error, Error.create);
     return error;
   }
   this.message = errorObject;
+  this.code = code;
   return this;
 };
 Error.prototype.create = Error.create;
 Error.prototype.toString = function() {
-  return this.message ? `ErrorObjectPolyFill: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
+  const codeString = this.code ? ` (${this.code})` : '';
+  return this.message ? `ErrorObjectPolyFill${codeString}: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
 };
 Error.prototype.toJSON = function() {
   let map = {};
