@@ -1,9 +1,10 @@
-let { describe, it } = require('mocha');
+const { describe, it } = require('mocha');
 let { expect } = require('chai');
 require('../index');
 
 describe('index.js', () => {
   let thrownObject = { field: 'value' };
+  const code = 'TEST_CODE';
   describe('ApplicationError Construction', () => {
     it('correctly captures object in error', () => {
       let error = new ApplicationError(thrownObject);
@@ -64,6 +65,12 @@ describe('index.js', () => {
     it('correctly captures object in Error()', () => {
       let error = Error().create(thrownObject);
       expect(error.message).to.eql(thrownObject);
+    });
+
+    it('correctly captures code in Error()', () => {
+      let error = Error().create(thrownObject, code);
+      expect(error.message).to.eql(thrownObject);
+      expect(error.code).to.eql(code);
     });
 
     it('correctly captures object in new error', () => {
