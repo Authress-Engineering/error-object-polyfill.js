@@ -39,16 +39,16 @@ describe('index.js', () => {
 
       Error.prepareStackTrace = (a, b) => b;
       Error.stackTraceLimit = Math.max(10, limit);
-    
+
       // capture the stack
       Error.captureStackTrace(obj);
-    
+
       // slice this function off the top
       let stack = obj.stack.slice(1);
-    
+
       Error.prepareStackTrace = prep;
       Error.stackTraceLimit = limit;
-    
+
       let callSite = stack[1];
       callSite.getFileName();
       callSite.getLineNumber();
@@ -89,6 +89,12 @@ describe('index.js', () => {
       expect(toString).to.equal('ErrorObjectPolyFill: {}');
     });
 
+    it('ApplicationError works', () => {
+      const error = new ApplicationError('Code');
+      expect(error.message).to.equal('Code');
+      expect(error.code).to.equal('Code');
+    });
+
     it('JSON.stringify works', () => {
       let error = Error.create(thrownObject);
       let loggedError = JSON.parse(JSON.stringify(error));
@@ -123,16 +129,16 @@ describe('index.js', () => {
 
       Error.prepareStackTrace = (a, b) => b;
       Error.stackTraceLimit = Math.max(10, limit);
-    
+
       // capture the stack
       Error.captureStackTrace(obj);
-    
+
       // slice this function off the top
       let stack = obj.stack.slice(1);
-    
+
       Error.prepareStackTrace = prep;
       Error.stackTraceLimit = limit;
-    
+
       let callSite = stack[1];
       callSite.getFileName();
       callSite.getLineNumber();
@@ -164,16 +170,16 @@ describe('index.js', () => {
 
 //       Error.prepareStackTrace = (a, b) => b;
 //       Error.stackTraceLimit = Math.max(10, limit);
-    
+
 //       // capture the stack
 //       Error.captureStackTrace(obj);
-    
+
 //       // slice this function off the top
 //       let stack = obj.stack.slice(1);
-    
+
 //       Error.prepareStackTrace = prep;
 //       Error.stackTraceLimit = limit;
-    
+
 //       let callSite = stack[1];
 //       callSite.getFileName();
 //       callSite.getLineNumber();

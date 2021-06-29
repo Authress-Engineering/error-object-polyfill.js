@@ -22,9 +22,9 @@ class ApplicationError extends Error {
     super(message, ...args);
     originalError.captureStackTrace(this, this.constructor);
     this.message = message;
-    this.code = code;
+    this.code = code || (typeof message === 'string' ? message : null);
   }
-  
+
   get [Symbol.toStringTag]() {
     return this.toString();
   }
@@ -55,7 +55,7 @@ Error.create = function(errorObject, code) {
     return error;
   }
   this.message = errorObject;
-  this.code = code;
+  this.code = code || (typeof errorObject === 'string' ? errorObject : null);
   return this;
 };
 Error.prototype.create = Error.create;
