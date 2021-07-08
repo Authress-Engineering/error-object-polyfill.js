@@ -20,7 +20,9 @@ let originalError = Error;
 class ApplicationError extends Error {
   constructor(message, code, ...args) {
     super(message, ...args);
-    originalError.captureStackTrace(this, this.constructor);
+    if (typeof originalError.captureStackTrace !== 'undefined') {
+      originalError.captureStackTrace(this, this.constructor);
+    }
     this.message = message;
     this.code = code || (typeof message === 'string' ? message : null);
   }
@@ -51,7 +53,9 @@ module.exports = ApplicationError;
 Error.create = function(errorObject, code) {
   if (!(this instanceof Error)) {
     let error = new Error().create(errorObject, code);
-    Error.captureStackTrace(error, Error.create);
+    if (typeof Error.captureStackTrace !== 'undefined') {
+      Error.captureStackTrace(error, Error.create);
+    }
     return error;
   }
   this.message = errorObject;
