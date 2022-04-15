@@ -45,8 +45,9 @@ class ApplicationError extends Error {
   }
 }
 
-/* eslint-disable-next-line no-global-assign */
-global.ApplicationError = ApplicationError;
+if (typeof global !== 'undefined') {
+  global.ApplicationError = ApplicationError;
+}
 module.exports = ApplicationError;
 
 /* eslint-disable no-extend-native */
