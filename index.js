@@ -24,7 +24,7 @@ class ApplicationError extends Error {
       originalError.captureStackTrace(this, this.constructor);
     }
     this.message = message;
-    this.code = code || (typeof message === 'string' ? message : null);
+    this.code = code || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
   }
 
   get [Symbol.toStringTag]() {
@@ -60,7 +60,7 @@ Error.create = function(errorObject, code) {
     return error;
   }
   this.message = errorObject;
-  this.code = code || (typeof errorObject === 'string' ? errorObject : null);
+  this.code = code || typeof errorObject === 'string' && errorObject || typeof errorObject === 'object' && errorObject.code || null;
   return this;
 };
 Error.prototype.create = Error.create;
@@ -68,6 +68,7 @@ Error.prototype.toString = function() {
   const codeString = this.code ? ` (${this.code})` : '';
   return this.message ? `ErrorObjectPolyFill${codeString}: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
 };
+Error.prototype.inspect = Error.prototype.toString;
 Error.prototype.toJSON = function() {
   let map = {};
   Object.getOwnPropertyNames(this).forEach(key => {

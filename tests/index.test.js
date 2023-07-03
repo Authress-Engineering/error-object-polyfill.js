@@ -1,9 +1,11 @@
 const { describe, it } = require('mocha');
 let { expect } = require('chai');
+// We must not need to import ApplicationError it must work by default
+// const ApplicationError = require('../index');
 require('../index');
 
 describe('index.js', () => {
-  let thrownObject = { field: 'value' };
+  let thrownObject = { field: 'value', code: 'BACKUP_CODE' };
   const code = 'TEST_CODE';
   describe('ApplicationError Construction', () => {
     it('correctly captures object in error', () => {
@@ -58,29 +60,29 @@ describe('index.js', () => {
 
   describe('create()', () => {
     it('correctly captures object in Error', () => {
-      let error = Error.create(thrownObject);
+      let error = new ApplicationError(thrownObject);
       expect(error.message).to.eql(thrownObject);
     });
 
     it('correctly captures object in Error()', () => {
-      let error = Error().create(thrownObject);
+      let error = new ApplicationError(thrownObject);
       expect(error.message).to.eql(thrownObject);
     });
 
     it('correctly captures code in Error()', () => {
-      let error = Error().create(thrownObject, code);
+      let error = new ApplicationError(thrownObject, code);
       expect(error.message).to.eql(thrownObject);
       expect(error.code).to.eql(code);
     });
 
     it('correctly captures object in new error', () => {
-      let error = new Error().create(thrownObject);
+      let error = new ApplicationError(thrownObject);
       expect(error.message).to.eql(thrownObject);
     });
 
     it('It is an error', () => {
       expect(Error.create({})).to.be.instanceof(Error);
-      expect(Error().create({})).to.be.instanceof(Error);
+      expect(new ApplicationError({})).to.be.instanceof(Error);
       expect(new Error().create({})).to.be.instanceof(Error);
     });
 
@@ -111,10 +113,12 @@ describe('index.js', () => {
       let error = Error.create(thrownObject);
       expect(error.stack).to.not.eq(null);
       error.stack = {};
-      let errorFunction = Error().create(thrownObject);
+
+      let errorFunction = new ApplicationError(thrownObject);
       expect(errorFunction.stack).to.not.eq(null);
       errorFunction.stack = {};
-      let errorNew = new Error().create(thrownObject);
+
+      let errorNew = new ApplicationError(thrownObject);
       expect(errorNew.stack).to.not.eq(null);
       errorNew.stack = {};
 
