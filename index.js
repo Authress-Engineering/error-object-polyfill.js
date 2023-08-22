@@ -45,10 +45,12 @@ class ApplicationError extends Error {
   }
 }
 
+const originalApplicationErrorClass = ApplicationError;
+const ApplicationErrorWrapper = function(...args) { return new originalApplicationErrorClass(...args); };
 if (typeof global !== 'undefined') {
-  global.ApplicationError = ApplicationError;
+  global.ApplicationError = ApplicationErrorWrapper;
 }
-module.exports = ApplicationError;
+module.exports = ApplicationErrorWrapper;
 
 /* eslint-disable no-extend-native */
 Error.create = function(errorObject, code) {

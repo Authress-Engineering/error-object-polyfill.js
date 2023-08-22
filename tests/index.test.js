@@ -82,6 +82,7 @@ describe('index.js', () => {
 
     it('It is an error', () => {
       expect(Error.create({})).to.be.instanceof(Error);
+      expect(ApplicationError({})).to.be.instanceof(Error);
       expect(new ApplicationError({})).to.be.instanceof(Error);
       expect(new Error().create({})).to.be.instanceof(Error);
     });
@@ -93,6 +94,12 @@ describe('index.js', () => {
 
     it('ApplicationError works', () => {
       const error = new ApplicationError('Code');
+      expect(error.message).to.equal('Code');
+      expect(error.code).to.equal('Code');
+    });
+
+    it('ApplicationError works without new', () => {
+      const error = ApplicationError('Code');
       expect(error.message).to.equal('Code');
       expect(error.code).to.equal('Code');
     });
