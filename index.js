@@ -18,13 +18,19 @@
 
 let originalError = Error;
 class ApplicationError extends Error {
-  constructor(message, code, ...args) {
-    super(message, ...args);
+  constructor(message, rawCode, ...args) {
+    const code = rawCode || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
+
+    const codeString = code ? ` (${code})` : '';
+    const stringErrorMessage = message ? `ApplicationError ${codeString}: ${JSON.stringify(message)}` : 'ApplicationError';
+    super(stringErrorMessage, ...args);
+
     if (typeof originalError.captureStackTrace !== 'undefined') {
       originalError.captureStackTrace(this, this.constructor);
     }
+
     this.message = message;
-    this.code = code || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
+    this.code = code;
   }
 
   get [Symbol.toStringTag]() {

@@ -121,7 +121,7 @@ describe('index.js', () => {
       expect(error.stack).to.not.eq(null);
       error.stack = {};
 
-      let errorFunction = new ApplicationError(thrownObject);
+      let errorFunction = ApplicationError(thrownObject);
       expect(errorFunction.stack).to.not.eq(null);
       errorFunction.stack = {};
 
