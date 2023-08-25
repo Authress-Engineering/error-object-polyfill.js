@@ -19,7 +19,7 @@ describe('index.js', () => {
 
     it('PolyFill toString works', () => {
       let toString = new ApplicationError({}).toString();
-      expect(toString).to.equal('ApplicationError: {}');
+      expect(toString).to.equal('(UnspecifiedApplicationErrorCode): {}');
     });
 
     it('JSON.stringify works', () => {

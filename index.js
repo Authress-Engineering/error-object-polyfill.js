@@ -21,8 +21,8 @@ class ApplicationError extends Error {
   constructor(message, rawCode, ...args) {
     const code = rawCode || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
 
-    const codeString = code ? ` (${code})` : '';
-    const stringErrorMessage = message ? `ApplicationError ${codeString}: ${JSON.stringify(message)}` : 'ApplicationError';
+    const codeString = `(${code || 'UnspecifiedApplicationErrorCode'})`;
+    const stringErrorMessage = `${codeString}: ${JSON.stringify(message || '')}`;
     super(stringErrorMessage, ...args);
 
     if (typeof originalError.captureStackTrace !== 'undefined') {
@@ -38,8 +38,8 @@ class ApplicationError extends Error {
   }
 
   toString() {
-    const codeString = this.code ? ` (${this.code})` : '';
-    return this.message ? `${this.constructor.name}${codeString}: ${JSON.stringify(this.message)}` : this.constructor.name;
+    const codeString = `(${this.code || 'UnspecifiedApplicationErrorCode'})`;
+    return `${codeString}: ${JSON.stringify(this.message || '')}`;
   }
 
   toJSON() {
