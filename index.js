@@ -17,7 +17,7 @@
 */
 
 let originalError = Error;
-class ApplicationError extends Error {
+class ApplicationErrorExtension extends Error {
   constructor(message, rawCode, ...args) {
     const code = rawCode || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
 
@@ -51,12 +51,12 @@ class ApplicationError extends Error {
   }
 }
 
-const originalApplicationErrorClass = ApplicationError;
-const ApplicationErrorWrapper = function(...args) { return new originalApplicationErrorClass(...args); };
+const originalApplicationErrorClass = ApplicationErrorExtension;
+const ApplicationError = function(...args) { return new originalApplicationErrorClass(...args); };
 if (typeof global !== 'undefined') {
-  global.ApplicationError = ApplicationErrorWrapper;
+  global.ApplicationError = ApplicationError;
 }
-module.exports = ApplicationErrorWrapper;
+module.exports = ApplicationError;
 
 /* eslint-disable no-extend-native */
 Error.create = function(errorObject, code) {
