@@ -1,6 +1,6 @@
-export class ApplicationError extends Error {
+export default class ApplicationError extends Error {
   code: string;
   stack: string;
-  message: object;
-  constructor(message: object, code?: string);
+  message: unknown;
+  constructor(message: unknown, code?: string);
 }
