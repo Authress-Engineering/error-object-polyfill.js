@@ -57,6 +57,7 @@ if (typeof global !== 'undefined') {
   global.ApplicationError = ApplicationError;
 }
 module.exports = ApplicationError;
+module.exports.ApplicationError = ApplicationError;
 
 /* eslint-disable no-extend-native */
 Error.create = function(errorObject, code) {
