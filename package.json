@@ -44,7 +44,7 @@
     "error object"
   ],
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=18"
   },
   "author": "Rhosys Developers <developers@rhosys.ch> (http://rhosys.ch)",
   "license": "GPL-3.0",
