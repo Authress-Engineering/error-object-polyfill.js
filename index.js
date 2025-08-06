@@ -16,13 +16,15 @@
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+const stringify = require('json-stringify-safe');
+
 let originalError = Error;
 class ApplicationErrorExtension extends Error {
   constructor(message, rawCode, ...args) {
     const code = rawCode || typeof message === 'string' && message || typeof message === 'object' && message.code || null;
 
     const codeString = `(${code || 'UnspecifiedApplicationErrorCode'})`;
-    const stringErrorMessage = `${codeString}: ${JSON.stringify(message || '')}`;
+    const stringErrorMessage = `${codeString}: ${stringify(message || '')}`;
     super(stringErrorMessage, ...args);
 
     if (typeof originalError.captureStackTrace !== 'undefined') {
@@ -39,7 +41,7 @@ class ApplicationErrorExtension extends Error {
 
   toString() {
     const codeString = `(${this.code || 'UnspecifiedApplicationErrorCode'})`;
-    return `${codeString}: ${JSON.stringify(this.message || '')}`;
+    return `${codeString}: ${stringify(this.message || '')}`;
   }
 
   toJSON() {
@@ -75,7 +77,7 @@ Error.create = function(errorObject, code) {
 Error.prototype.create = Error.create;
 Error.prototype.toString = function() {
   const codeString = this.code ? ` (${this.code})` : '';
-  return this.message ? `ErrorObjectPolyFill${codeString}: ${JSON.stringify(this.message)}` : 'ErrorObjectPolyFill';
+  return this.message ? `ErrorObjectPolyFill${codeString}: ${stringify(this.message)}` : 'ErrorObjectPolyFill';
 };
 Error.prototype.inspect = Error.prototype.toString;
 Error.prototype.toJSON = function() {
