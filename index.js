@@ -45,7 +45,7 @@ class ApplicationErrorExtension extends Error {
   }
 
   toJSON() {
-    let map = {};
+    const map = {};
     Object.getOwnPropertyNames(this).forEach(key => {
       map[key] = this[key];
     });
@@ -64,7 +64,7 @@ module.exports.ApplicationError = ApplicationError;
 /* eslint-disable no-extend-native */
 Error.create = function(errorObject, code) {
   if (!(this instanceof Error)) {
-    let error = new Error().create(errorObject, code);
+    const error = new Error().create(errorObject, code);
     if (typeof Error.captureStackTrace !== 'undefined') {
       Error.captureStackTrace(error, Error.create);
     }
@@ -81,7 +81,7 @@ Error.prototype.toString = function() {
 };
 Error.prototype.inspect = Error.prototype.toString;
 Error.prototype.toJSON = function() {
-  let map = {};
+  const map = {};
   Object.getOwnPropertyNames(this).forEach(key => {
     map[key] = this[key];
   });
