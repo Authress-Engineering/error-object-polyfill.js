@@ -10,6 +10,10 @@ on:
     - master
     - 'release/**'
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   nodejs:
     runs-on: ubuntu-latest
