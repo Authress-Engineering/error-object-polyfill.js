@@ -30,9 +30,11 @@ jobs:
       run: yarn lint && yarn test
     - name: Deploy to NPM
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' && github.event_name == 'push'
-      run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      # Version 11.5.1 or later is required for npm publish
+      run: |
+        npm install -g npm@11.5.1
+        npm publish --access public
+
 
     - name: After build
       if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' && github.event_name == 'push'
