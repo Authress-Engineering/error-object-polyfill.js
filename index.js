@@ -33,6 +33,7 @@ class ApplicationErrorExtension extends Error {
 
     this.message = message;
     this.code = code;
+    this.name = code;
   }
 
   get [Symbol.toStringTag]() {
@@ -61,17 +62,18 @@ if (typeof global !== 'undefined') {
 module.exports = ApplicationError;
 module.exports.ApplicationError = ApplicationError;
 
-/* eslint-disable no-extend-native */
 Error.create = function(errorObject, code) {
   if (!(this instanceof Error)) {
     const error = new Error().create(errorObject, code);
     if (typeof Error.captureStackTrace !== 'undefined') {
       Error.captureStackTrace(error, Error.create);
     }
+    error.name = error.name || error.code;
     return error;
   }
   this.message = errorObject;
   this.code = code || typeof errorObject === 'string' && errorObject || typeof errorObject === 'object' && errorObject.code || null;
+  this.name = code;
   return this;
 };
 Error.prototype.create = Error.create;

@@ -9,29 +9,26 @@
     "index.d.ts"
   ],
   "scripts": {
-    "lint": "eslint --ext .js tests index.js",
-    "test": "mocha tests/**/*.js -R spec"
+    "lint": "eslint tests index.js",
+    "test": "vitest run"
   },
   "dependencies": {
     "json-stringify-safe": "^5.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
-    "@typescript-eslint/parser": "^3.1.0",
-    "chai": "^3.5.0",
     "ci-build-tools": "^1.0.13",
     "commander": "^2.15.1",
-    "eslint": "^7.12.1",
-    "eslint-config-cimpress-atsquad": "^1.0.67",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-mocha": "^7.0.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
+    "@authress/eslint-config": "^2.0.14",
     "fs-extra": "^9.0.1",
     "glob": "^5.0.15",
-    "mocha": "^11.7.1",
     "sinon": "^1.17.3",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "vitest": "^3.0.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-import": "^2.31.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.56.0"
   },
   "repository": {
     "type": "git",
@@ -44,7 +41,7 @@
     "error object"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "author": "Rhosys Developers <developers@rhosys.ch> (http://rhosys.ch)",
   "license": "GPL-3.0",
