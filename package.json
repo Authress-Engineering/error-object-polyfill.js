@@ -28,7 +28,7 @@
     "glob": "^5.0.15",
     "sinon": "^1.17.3",
     "typescript": "^5.9.3",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.0"
   },
   "repository": {
     "type": "git",
